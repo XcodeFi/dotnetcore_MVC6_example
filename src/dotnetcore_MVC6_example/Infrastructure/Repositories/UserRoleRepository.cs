@@ -1,6 +1,4 @@
-﻿using dotnetcore_MVC6_example.Infrastructure;
-using dotnetcore_MVC6_example.Infrastructure.Repositories;
-using dotnetcore_MVC6_example.Entities;
+﻿using dotnetcore_MVC6_example.Entities;
 using dotnetcore_MVC6_example.Infrastructure.Repositories.Abstract;
 
 namespace dotnetcore_MVC6_example.Infrastructure.Repositories
