@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using dotnetcore_MVC6_example.Models.CardViewModels;
 using dotnetcore_MVC6_example.Models.CategoryViewModels;
-using Gradudate_project.Entities;
+using dotnetcore_MVC6_example.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

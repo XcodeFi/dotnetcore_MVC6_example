@@ -10,6 +10,7 @@ var gulp = require("gulp"),
 var webroot = "./wwwroot/";
 
 var paths = {
+    npm:"./node_modules/",
     js: webroot + "js/**/*.js",
     minJs: webroot + "js/**/*.min.js",
     css: webroot + "css/**/*.css",
@@ -27,6 +28,8 @@ gulp.task("clean:css", function (cb) {
 });
 
 gulp.task("clean", ["clean:js", "clean:css"]);
+
+
 
 gulp.task("min:js", function () {
     return gulp.src([paths.js, "!" + paths.minJs], { base: "." })

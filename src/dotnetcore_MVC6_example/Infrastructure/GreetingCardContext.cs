@@ -1,7 +1,7 @@
-﻿using Gradudate_project.Entities;
+﻿using dotnetcore_MVC6_example.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Gradudate_project.Infrastructure
+namespace dotnetcore_MVC6_example.Infrastructure
 {
     public class GreetingCardContext:DbContext
     {
@@ -78,7 +78,7 @@ namespace Gradudate_project.Infrastructure
             // User
             modelBuilder.Entity<User>().Property(u => u.Username).IsRequired().HasMaxLength(100);
             modelBuilder.Entity<User>().Property(u => u.Email).IsRequired().HasMaxLength(200);
-            modelBuilder.Entity<User>().Property(u => u.HashedPassword).IsRequired().HasMaxLength(200);
+            modelBuilder.Entity<User>().Property(u => u.Password).IsRequired().HasMaxLength(200);
             modelBuilder.Entity<User>().Property(u => u.Salt).IsRequired().HasMaxLength(200);
 
             // UserRole

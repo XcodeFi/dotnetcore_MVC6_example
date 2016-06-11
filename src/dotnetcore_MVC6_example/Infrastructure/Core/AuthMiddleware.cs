@@ -4,8 +4,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Gradudate_project.Infrastructure.Repositories.Abstract;
-using Gradudate_project.Entities;
+using dotnetcore_MVC6_example.Infrastructure.Repositories.Abstract;
+using dotnetcore_MVC6_example.Entities;
 using dotnetcore_MVC6_example.Infrastructure.Services;
 
 namespace dotnetcore_MVC6_example.Infrastructure.Core

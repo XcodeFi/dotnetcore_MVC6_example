@@ -1,4 +1,4 @@
-﻿using Gradudate_project.Entities;
+﻿using dotnetcore_MVC6_example.Entities;
 using PhotoGallery.Infrastructure;
 using System.Collections.Generic;
 

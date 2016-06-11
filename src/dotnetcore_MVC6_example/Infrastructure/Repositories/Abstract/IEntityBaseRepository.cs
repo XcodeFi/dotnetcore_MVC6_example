@@ -1,10 +1,10 @@
-﻿using Gradudate_project.Entities;
+﻿using dotnetcore_MVC6_example.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Gradudate_project.Infrastructure.Repositories.Abstract
+namespace dotnetcore_MVC6_example.Infrastructure.Repositories.Abstract
 {
     public interface IEntityBaseRepository<T> where T : class, IEntityBase, new()
     {

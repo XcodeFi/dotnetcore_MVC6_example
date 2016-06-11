@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Gradudate_project.Entities;
-using Gradudate_project.Infrastructure.Repositories.Abstract;
+using dotnetcore_MVC6_example.Entities;
+using dotnetcore_MVC6_example.Infrastructure.Repositories.Abstract;
 
-namespace Gradudate_project.Infrastructure.Repositories
+namespace dotnetcore_MVC6_example.Infrastructure.Repositories
 {
     public class CardRepository: EntityBaseRepository<Card>, ICardRepository
     {
