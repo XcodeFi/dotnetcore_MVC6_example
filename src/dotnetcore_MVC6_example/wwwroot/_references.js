@@ -6,3 +6,5 @@
 /// <reference path="../bower_components/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" />
 /// <reference path="../gulpfile.js" />
 /// <reference path="../systemjs.config.js" />
+/// <reference path="app/app.js" />
+/// <reference path="lib/js/systemjs.config.js" />

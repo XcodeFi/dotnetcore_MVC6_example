@@ -3,8 +3,8 @@ using dotnetcore_MVC6_example.Infrastructure.Repositories.Abstract;
 
 namespace dotnetcore_MVC6_example.Infrastructure.Repositories
 {
-    public class ErrorRepository:EntityBaseRepository<Error>,IErrorRepository
+    public class LoggingRepository:EntityBaseRepository<Error>,ILoggingRepository
     {
-        public ErrorRepository(GreetingCardContext context) : base(context) { }
+        public LoggingRepository(GreetingCardContext context) : base(context) { }
     }
 }

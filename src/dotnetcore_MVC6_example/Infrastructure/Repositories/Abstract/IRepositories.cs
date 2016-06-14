@@ -11,7 +11,6 @@ namespace dotnetcore_MVC6_example.Infrastructure.Repositories.Abstract
     public interface ICommentRepository : IEntityBaseRepository<Comment> { }
     public interface IContactRepository : IEntityBaseRepository<Contact> { }
     public interface IRoleRepository : IEntityBaseRepository<Role> { }
-    public interface IErrorRepository : IEntityBaseRepository<Error> { }
     public interface IUserRepository : IEntityBaseRepository<User>
     {
         User GetSingleByUsername(string username);

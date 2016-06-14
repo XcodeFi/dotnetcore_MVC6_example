@@ -1,27 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using dotnetcore_MVC6_example.Data;
 using dotnetcore_MVC6_example.Models;
 using dotnetcore_MVC6_example.Services;
+using dotnetcore_MVC6_example.Infrastructure;
+using dotnetcore_MVC6_example.Infrastructure.Repositories;
+using dotnetcore_MVC6_example.Infrastructure.Repositories.Abstract;
+using dotnetcore_MVC6_example.Infrastructure.Services;
+using System.Security.Claims;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using dotnetcore_MVC6_example.Infrastructure.Mapping;
 
 namespace dotnetcore_MVC6_example
 {
     public class Startup
     {
+
+        private static string _applicationPath = string.Empty;
+        private static string _contentRootPath = string.Empty;
         public Startup(IHostingEnvironment env)
         {
+
+            _applicationPath = env.WebRootPath;
+            _contentRootPath = env.ContentRootPath;
+
             var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .SetBasePath(_contentRootPath)
+                .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
             if (env.IsDevelopment())
@@ -45,12 +55,42 @@ namespace dotnetcore_MVC6_example
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<GreetingCardContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            // Repositories
+            services.AddScoped<ICardRepository, CardRepository>();//card
+            services.AddScoped<ICateBlogRepository, CategoryBlogRepository>();//category_Blog
+            services.AddScoped<IUserRepository, UserRepository>();//user
+            services.AddScoped<IUserRoleRepository, UserRoleRepository>();//user_role
+            services.AddScoped<IRoleRepository, RoleRepository>();//role
+            services.AddScoped<IBlogRepository, BlogRepository>();//blog
+            services.AddScoped<ILoggingRepository, LoggingRepository>();//error
+            services.AddScoped<ICateRepository, CategoryRepository>();//category
+            services.AddScoped<ICommentRepository, CommentRepository>();//comment
+            services.AddScoped<IContactRepository, ContactRepository>();//contact
+
+            // Services
+            services.AddScoped<IMembershipService, MembershipService>();
+            services.AddScoped<IEncryptionService, EncryptionService>();
+
+            services.AddAuthentication();
+
+            // Polices
+            services.AddAuthorization(options =>
+            {
+                // inline policies
+                options.AddPolicy("AdminOnly", policy =>
+                {
+                    policy.RequireClaim(ClaimTypes.Role, "Admin");
+                });
+
+            });
+
+
+            //services.AddIdentity<ApplicationUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<GreetingCardContext>()
+            //    .AddDefaultTokenProviders();
 
             services.AddMvc();
 
@@ -78,6 +118,23 @@ namespace dotnetcore_MVC6_example
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            // this will serve up node_modules
+            var provider = new PhysicalFileProvider(
+                Path.Combine(_contentRootPath, "node_modules")
+            );
+            var _fileServerOptions = new FileServerOptions();
+            _fileServerOptions.RequestPath = "/node_modules";
+            _fileServerOptions.StaticFileOptions.FileProvider = provider;
+            _fileServerOptions.EnableDirectoryBrowsing = true;
+            app.UseFileServer(_fileServerOptions);
+
+            AutoMapperConfiguration.Configure();
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true
+            });
             app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseStaticFiles();
