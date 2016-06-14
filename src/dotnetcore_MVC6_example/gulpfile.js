@@ -57,11 +57,32 @@ gulp.task("clean", ["clean:js", "clean:css"]);
 gulp.task("setup-vendor", function (done) {
     gulp.src(['systemjs.config.js',
         'bower_components/alertify.js/lib/alertify.min.js',
-        'node_modules/fancybox/dist/js/jquery.fancybox.pack.js',
-        'bower_components/bootstrap/dist/js/bootstrap*.js',
-        'bower_components/jquery/dist/jquery.*js'
+        'bower_components/bootstrap/dist/js/bootstrap.*js',
+        'bower_components/jquery/dist/jquery.*js',
+        'bower_components/jquery-validation/dist/jquery.validate.*js',
+        'bower_components/jquery-validation-unobtrusive/jquery.validate.unobtrusive.*js',
+    ]).pipe(gulp.dest(paths.jsVendor));
 
-    ]).pipe(gulp.dest(paths.js));
+    gulp.src(['bower_components/bootstrap/dist/css/bootstrap.*css',
+      'bower_components/components-font-awesome/css/font-awesome.*css',
+      'bower_components/alertify.js/themes/alertify.core.*css',
+      'bower_components/alertify.js/themes/alertify.bootstrap.*css',
+      'bower_components/alertify.js/themes/alertify.default.*css'
+    ]).pipe(gulp.dest(paths.cssVendor));
+
+    gulp.src(['node_modules/bootstrap/fonts/glyphicons-halflings-regular.eot',
+      'bower_components/bootstrap/fonts/glyphicons-halflings-regular.svg',
+      'bower_components/bootstrap/fonts/glyphicons-halflings-regular.ttf',
+      'bower_components/bootstrap/fonts/glyphicons-halflings-regular.woff',
+      'bower_components/bootstrap/fonts/glyphicons-halflings-regular.woff2',
+      'bower_components/components-font-awesome/fonts/FontAwesome.otf',
+      'bower_components/components-font-awesome/fonts/fontawesome-webfont.eot',
+      'bower_components/components-font-awesome/fonts/fontawesome-webfont.svg',
+      'bower_components/components-font-awesome/fonts/fontawesome-webfont.ttf',
+      'bower_components/components-font-awesome/fonts/fontawesome-webfont.woff',
+      'bower_components/components-font-awesome/fonts/fontawesome-webfont.woff2',
+    ]).pipe(gulp.dest(paths.fontsVendor));
+
 });
 
 gulp.task("min:js", function () {
